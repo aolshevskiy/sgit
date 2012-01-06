@@ -1,7 +1,6 @@
 package sgit;
 
 import java.util.Collection;
-import java.util.List;
 
 import sgit.dao.RepositoryDao;
 import sgit.dto.SRepository;

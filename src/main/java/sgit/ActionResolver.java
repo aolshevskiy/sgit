@@ -1,10 +1,11 @@
 package sgit;
 
-import com.google.inject.Injector;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.config.Configuration;
 import net.sourceforge.stripes.controller.NameBasedActionResolver;
+
+import com.google.inject.Injector;
 
 public class ActionResolver extends NameBasedActionResolver {
 	private Injector injector;

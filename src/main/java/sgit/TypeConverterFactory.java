@@ -2,11 +2,11 @@ package sgit;
 
 import java.util.Locale;
 
-import com.google.inject.Injector;
-
 import net.sourceforge.stripes.config.Configuration;
 import net.sourceforge.stripes.validation.DefaultTypeConverterFactory;
 import net.sourceforge.stripes.validation.TypeConverter;
+
+import com.google.inject.Injector;
 
 public class TypeConverterFactory extends DefaultTypeConverterFactory {
 	private Injector injector;
