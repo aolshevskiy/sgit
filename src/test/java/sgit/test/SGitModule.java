@@ -31,9 +31,7 @@ public class SGitModule extends ServletModule {
 	
 	@Provides @Named("sgit.repositories")
 	List<File> provideRepositories() {
-		List<File> repos = new ArrayList<File>();
-		repos.add(new File("repositories/repo1.git"));
-		repos.add(new File("repositories/repo2.git"));
+		List<File> repos = new ArrayList<File>();		
 		repos.add(new File("repositories/xsbt-web-plugin.git"));
 		return repos;
 	}

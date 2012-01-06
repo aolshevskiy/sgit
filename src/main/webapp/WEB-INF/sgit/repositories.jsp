@@ -8,8 +8,12 @@
 					${repo.name}
 					<s:param name="repository" value="${repo.name}" />
 				</s:link> 
-				${repo.lastCommit.shortMessage} 
-				<em class="time">${repo.lastCommit.commitTime}</em>
+				${repo.lastCommit.shortMessage}
+				<c:choose><c:when test="${repo.lastCommit != null}">
+					<em class="time">${repo.lastCommit.commitTime}</em>
+				</c:when><c:otherwise>
+					<em>No commits yet</em>					
+				</c:otherwise></c:choose>					
 			</li>
 		</c:forEach>
 	</ul>

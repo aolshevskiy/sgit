@@ -1,9 +1,10 @@
 package sgit;
 
+import java.util.Collection;
 import java.util.List;
 
 import sgit.dao.RepositoryDao;
-import sgit.dto.Repository;
+import sgit.dto.SRepository;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -14,7 +15,7 @@ public class SGitModule extends AbstractModule {
 	protected void configure() {}
 	
 	@Provides
-	List<Repository> provideRepositories(RepositoryDao dao) {
+	Collection<SRepository> provideRepositories(RepositoryDao dao) {
 		return dao.getAll();
 	}
 }

@@ -8,19 +8,20 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.List;
 
 import sgit.dao.RepositoryDao;
-import sgit.dto.Repository;
+import sgit.dto.SRepository;
 
 public class Repositories extends Base {
-	private final List<Repository> repos;
+	private final Collection<SRepository> repos;
 	
 	@Inject
-	Repositories(List<Repository> repos) {
+	Repositories(Collection<SRepository> repos) {
 		this.repos = repos;
 	}
-	public List<Repository> getRepos() {return repos;}
+	public Collection<SRepository> getRepos() {return repos;}
 	@DefaultHandler
 	public Resolution list() {		
 		return new ForwardResolution("/WEB-INF/sgit/repositories.jsp");

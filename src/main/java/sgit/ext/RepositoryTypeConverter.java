@@ -6,11 +6,11 @@ import java.util.Locale;
 import com.google.inject.Inject;
 
 import sgit.dao.RepositoryDao;
-import sgit.dto.Repository;
+import sgit.dto.SRepository;
 import net.sourceforge.stripes.validation.TypeConverter;
 import net.sourceforge.stripes.validation.ValidationError;
 
-public class RepositoryTypeConverter implements TypeConverter<Repository> {
+public class RepositoryTypeConverter implements TypeConverter<SRepository> {
 	private final RepositoryDao dao;
 	
 	@Inject
@@ -22,8 +22,8 @@ public class RepositoryTypeConverter implements TypeConverter<Repository> {
 	public void setLocale(Locale locale) {}
 
 	@Override
-	public Repository convert(String input,
-			Class<? extends Repository> targetType, Collection<ValidationError> errors) {
+	public SRepository convert(String input,
+			Class<? extends SRepository> targetType, Collection<ValidationError> errors) {
 		return dao.get(input);
 	}
 

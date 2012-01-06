@@ -2,6 +2,12 @@ body
 {
 	padding-top: 10px;	
 }
+#header hr {
+	margin-top: 0;
+}
+#header h1 {
+	margin: 0 0 10px 10px;
+}
 #fluid-layout #header h1 {
 	margin: 0 0 10px 10px;
 	line-height: 12pt;
