@@ -1,3 +1,38 @@
-body {
-		
+body 
+{
+	padding-top: 10px;	
+}
+#fluid-layout #header h1 {
+	margin: 0 0 10px 10px;
+	line-height: 12pt;
+	font-size: 12pt;
+}
+#fluid-layout #header hr {
+	margin: 0 0 10px 0;
+}
+#repositories {
+	margin-left: 10px;
+}
+#repositories li {	
+	line-height: 20pt;
+	font-size: 11pt;
+}
+#repositories a {	
+	font-size: 12pt;
+	text-decoration: underline;	
+}
+.sidebar {	
+	font-family: monospace;
+	border: 1px solid #AAAAAA;	
+}
+.sidebar ul {
+	margin-bottom: 0;
+}
+.sidebar ul li:FIRST-CHILD  {
+	border: none;
+}
+.sidebar li {
+	padding-left: 3px;
+	color: black;
+	border-top: 1px solid #AAAAAA;
 }
