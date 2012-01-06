@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
@@ -52,7 +53,7 @@ public class RepositoryDao {
 		}
 	}
 	
-	private SRepository newRepository(File path) {
+	private static SRepository newRepository(File path) {
 		String name = GitUtils.stripGitSuffix(path.getName());
 		Repository grepo = buildRepository(path);
 		Git git = new Git(grepo);
@@ -143,6 +144,14 @@ public class RepositoryDao {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public Iterable<RevCommit> getLog(SRepository repository, String path) {
+		System.out.println(repository + " " + path);
+		Repository repo = buildRepository(repository.getPath());
+		Git git = new Git(repo);		
+		return git.log().call();	
+		
 	}
 	
 }
