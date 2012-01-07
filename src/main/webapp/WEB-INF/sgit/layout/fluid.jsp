@@ -4,6 +4,7 @@
 <s:layout-component name="body">
 	<c:set var="layoutType">container-fluid</c:set>
 	<%@include file="/WEB-INF/sgit/header.jsp" %>
+	<%@include file="/WEB-INF/sgit/breadcrumbs.jsp" %>
 	<div class="container-fluid">	
 	<div class="sidebar">	
 	<s:layout-component name="sidebar" />

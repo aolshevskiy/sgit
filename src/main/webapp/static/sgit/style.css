@@ -19,6 +19,10 @@
 	font-size: 10pt;
 	color: #808080;	
 }
+#breadcrumbs {
+	margin-left: 20px;
+	margin-right: 20px;
+}
 #fluid-layout .sidebar {
 	width: 260px;
 }
