@@ -27,9 +27,15 @@ body
 	font-size: 12pt;
 	text-decoration: underline;	
 }
+#fluid-layout .sidebar {
+	width: 260px;
+}
+#fluid-layout .content {
+	margin-left: 280px;
+}
 .sidebar {	
 	font-family: monospace;
-	border: 1px solid #AAAAAA;	
+	border: 1px solid #AAAAAA;		
 }
 .sidebar ul {
 	margin-bottom: 0;
