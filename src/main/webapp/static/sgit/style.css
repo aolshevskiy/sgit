@@ -1,26 +1,6 @@
-body 
-{
-	padding-top: 10px;	
-}
-#header a {
-	color: black;
-}
-#header a:hover {
-	text-decoration: none;
-}
-#header hr {
-	margin-top: 0;
-}
-#header h1 {
-	margin: 0 0 10px 10px;
-}
-#fluid-layout #header h1 {
-	margin: 0 0 10px 10px;
-	line-height: 12pt;
-	font-size: 12pt;
-}
-#fluid-layout #header hr {
-	margin: 0 0 10px 0;
+.topbar {
+	position: static;
+	margin-bottom: 10px;
 }
 #repositories {
 	margin-left: 10px;
@@ -28,10 +8,16 @@ body
 #repositories li {	
 	line-height: 20pt;
 	font-size: 11pt;
+	color: #404040;		
 }
 #repositories a {	
 	font-size: 12pt;
 	text-decoration: underline;	
+}
+#repositories em {
+	font-style: normal;
+	font-size: 10pt;
+	color: #808080;	
 }
 #fluid-layout .sidebar {
 	width: 260px;
@@ -41,7 +27,7 @@ body
 }
 .sidebar {	
 	font-family: monospace;
-	border: 1px solid #AAAAAA;		
+	border: 1px solid #DDDDDD;		
 }
 .sidebar ul {
 	margin-bottom: 0;
@@ -52,20 +38,31 @@ body
 .sidebar li {
 	padding-left: 3px;
 	color: black;
-	border-top: 1px solid #AAAAAA;
+	border-top: 1px solid #DDDDDD;
 }
-#log li {
-	font-family: monospace;
-	color: black;
+#log li {	
+	color: #404040;
 	padding: 5px 10px;
-	background: #FAFAFA;
+	background: #F9F9F9;	
 	border-style: solid;
-	border-color: #BBBBBB; 
+	border-color: #DDDDDD; 
 	border-width: 0 1px 1px 1px;
 }
-#log li span {
-	font-family: sans;
+#log a {
+	font-family: monospace;
+}
+#log li:hover {
+	background: #F5F5F5;
+}
+#log li span.message {
+	padding-left: 2px;
 }
 #log li:FIRST-CHILD {
 	border-top-width: 1px;
+}
+#log li span.time {
+	display: block;
+	float: right;
+	font-size: 8pt;
+	color: #808080;	
 }

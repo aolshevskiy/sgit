@@ -11,6 +11,7 @@
 <body id="${layout}-layout">
 <s:layout-component name="body" />
 <script type="text/javascript" src="${contextPath}/static/sgit/date.extensions.js"></script>
+<script type="text/javascript" src="${contextPath}/static/sgit/script.js"></script>
 </body>
 </html>
 </s:layout-definition>

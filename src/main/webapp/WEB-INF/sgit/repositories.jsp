@@ -18,11 +18,7 @@
 		</c:forEach>
 	</ul>
 	<script type="text/javascript">
-	  $(function(){
-		  $('.time').each(function(i, o){			  
-			  $(o).text(new Date($(o).text()*1000).toRelativeTime());
-		  });
-	  });
-	</script>
+	  $(function(){timeConversion();});
+	</script>	
 </s:layout-component>
 </s:layout-render>

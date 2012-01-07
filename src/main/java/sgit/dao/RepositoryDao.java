@@ -3,6 +3,7 @@ package sgit.dao;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -22,6 +23,7 @@ import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.ObjectLoader;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -40,36 +42,27 @@ import com.google.inject.name.Named;
 public class RepositoryDao {	
 	private final Map<String, SRepository> repositories;	
 	
-	private static Repository buildRepository(File path) {
-		if(!path.exists())
-			throw new IllegalArgumentException(new FileNotFoundException(path + " not found."));
+	private static Repository buildRepository(File path) throws IOException {		
 		FileRepositoryBuilder builder = new FileRepositoryBuilder();		
-		try {
-			return builder.setGitDir(path)
-					.readEnvironment()
-					.findGitDir()
-					.build();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		return builder.setGitDir(path)
+				.readEnvironment()
+				.findGitDir()
+				.build();		
+	}
+	private static Repository buildRepository(SRepository repo) throws IOException {		
+		return buildRepository(repo.getPath());		
 	}
 	
-	private static SRepository newRepository(File path) {
+	private static SRepository newRepository(File path) throws NoHeadException, JGitInternalException, IOException {
 		String name = GitUtils.stripGitSuffix(path.getName());
 		Repository grepo = buildRepository(path);
-		Git git = new Git(grepo);
-		RevCommit commit = null;
-		try {
-			commit = git.log().call().iterator().next();
-		} catch (NoHeadException e) {			
-		} catch (JGitInternalException e) { 
-			throw new RuntimeException(e);
-		}		
+		Git git = new Git(grepo);				
+		RevCommit commit = git.log().call().iterator().next();				
 		return new SRepository(path, name, commit);		
 	}
 	
 	@Inject
-	RepositoryDao(@Named("sgit.repositories") List<File> repositories) {
+	RepositoryDao(@Named("sgit.repositories") List<File> repositories) throws NoHeadException, JGitInternalException, IOException {
 		this.repositories = new HashMap<String, SRepository>();				
 		for(File path: repositories) {
 			SRepository repository = newRepository(path); 
@@ -85,15 +78,25 @@ public class RepositoryDao {
 		return repositories.values();
 	}	
 	
-	private RevTree getHeadTree(Repository repo) throws AmbiguousObjectException, IOException {
+	private static RevTree getHeadTree(Repository repo) throws AmbiguousObjectException, IOException {
 		ObjectId head = repo.resolve(Constants.HEAD);
 		RevWalk rw = new RevWalk(repo);			
 		return rw.parseCommit(head).getTree();
 	}
 	
-	public List<PathEntry> getEntries(SRepository srepo, String path) {
-		Repository repo = buildRepository(srepo.getPath());				
+	private static TreeWalk getPathTreeWalk(SRepository srepo, String path) throws IOException {
+		Repository repo = buildRepository(srepo);
+		return getPathTreeWalk(repo, path);
+	}
+	
+	private static TreeWalk getPathTreeWalk(Repository repo, String path) throws AmbiguousObjectException, IOException {		
+		RevTree tree = getHeadTree(repo);		
+		return TreeWalk.forPath(repo, path, tree);
+	}
+	
+	public List<PathEntry> getEntries(SRepository srepo, String path) {						
 		try {
+			Repository repo = buildRepository(srepo);
 			RevTree tree = getHeadTree(repo);
 			TreeWalk tw = new TreeWalk(repo);			
 			tw.addTree(tree);
@@ -112,15 +115,7 @@ public class RepositoryDao {
 				result.add(new PathEntry(
 						tw.getNameString(), tw.isSubtree()));
 			}
-			Collections.sort(result, new Comparator<PathEntry>() {
-				@Override
-				public int compare(PathEntry o1, PathEntry o2) {
-					int result;
-					if((result = -o1.getIsDirectory().compareTo(o2.getIsDirectory()))==0)
-						return o1.getName().compareTo(o2.getName());
-					return result;
-				}			
-			});
+			Collections.sort(result);
 			return result;
 		} catch (AmbiguousObjectException e) {
 			throw new RuntimeException(e);
@@ -133,9 +128,8 @@ public class RepositoryDao {
 		if(path.isEmpty())
 			return true;
 		try {
-			Repository repo = buildRepository(repository.getPath());
-			RevTree tree = getHeadTree(repo);		
-			return TreeWalk.forPath(repo, path, tree).isSubtree();
+			Repository repo = buildRepository(repository);
+			return getPathTreeWalk(repository, path).isSubtree();
 		} catch (MissingObjectException e) {
 			throw new RuntimeException(e);
 		} catch (IncorrectObjectTypeException e) {
@@ -148,17 +142,30 @@ public class RepositoryDao {
 	}
 	
 	public Iterator<RevCommit> getLog(SRepository repository, String path) {		
-		Repository repo = buildRepository(repository.getPath());
-		LogCommand log = new Git(repo).log();
-		if(!path.isEmpty())
-			log.addPath(path);
 		try {
+			Repository repo = buildRepository(repository);			
+			LogCommand log = new Git(repo).log();
+			if(!path.isEmpty())
+				log.addPath(path);
 			return log.call().iterator();
 		} catch (NoHeadException e) {
 			throw new RuntimeException(e);		
 		} catch (JGitInternalException e) {			
 			throw new RuntimeException(e);
+		} catch (IOException e) {			
+			throw new RuntimeException(e);
 		}		
 	}
 	
+	public InputStream getFile(SRepository repository, String path) {
+		try {
+			Repository repo = buildRepository(repository.getPath());
+			TreeWalk tw = getPathTreeWalk(repository, path);
+			ObjectId objectId = tw.getObjectId(0);
+			ObjectLoader loader = repo.open(objectId);
+			return loader.openStream();
+		} catch (IOException e) {			
+			throw new RuntimeException(e);
+		}
+	}	
 }

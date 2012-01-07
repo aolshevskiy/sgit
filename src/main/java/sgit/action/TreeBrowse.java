@@ -11,11 +11,6 @@ import sgit.util.Path;
 import com.google.inject.Inject;
 
 public class TreeBrowse extends BaseBrowse {	
-	@Inject
-	TreeBrowse(RepositoryDao dao) {
-		this.dao = dao;
-	}	
-	
 	private PathEntry entry;
 	private List<PathEntry> entries;	
 	
@@ -38,7 +33,7 @@ public class TreeBrowse extends BaseBrowse {
 	public Resolution init() {
 		if(!getIsSubtree())
 			setPath(Path.getParent(getPath()));
-		entries = dao.getEntries(getRepository(), getPath());
+		entries = getDao().getEntries(getRepository(), getPath());
 		return null;
 	}
 }

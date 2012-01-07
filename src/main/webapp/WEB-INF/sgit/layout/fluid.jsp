@@ -2,6 +2,7 @@
 <<s:layout-definition>
 <s:layout-render name="/WEB-INF/sgit/layout/default.jsp" layout="fluid">
 <s:layout-component name="body">
+	<c:set var="layoutType">container-fluid</c:set>
 	<%@include file="/WEB-INF/sgit/header.jsp" %>
 	<div class="container-fluid">	
 	<div class="sidebar">	

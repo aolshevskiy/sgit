@@ -13,25 +13,10 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 
-public class Log extends BaseBrowse {
-	@Inject
-	Log(RepositoryDao dao) {
-		this.dao = dao;
-	}	
-	
+public class Log extends BaseBrowse {	
 	public Iterator<RevCommit> getLog() {
-		return dao.getLog(getRepository(), getPath());		
-	}
-	
-	private RevCommit commit;	
-	public void setCommit(RevCommit commit) {
-		System.out.println(commit.getName());
-		this.commit = commit;
-	}
-	
-	public String getAbbreviation() {
-		return commit.getName().substring(0, 8);
-	}
+		return getDao().getLog(getRepository(), getPath());		
+	}	
 	
 	@DefaultHandler
 	public Resolution log() {

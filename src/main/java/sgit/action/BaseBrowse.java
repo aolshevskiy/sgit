@@ -1,10 +1,17 @@
 package sgit.action;
 
+import com.google.inject.Inject;
+
 import sgit.dao.RepositoryDao;
 import sgit.dto.SRepository;
 
 public abstract class BaseBrowse extends Base {
-	protected RepositoryDao dao;
+	private RepositoryDao dao;
+	@Inject
+	void setDao(RepositoryDao dao) {
+		this.dao = dao;
+	}
+	public RepositoryDao getDao() {return dao;}
 	private String path = "";
 	public void setPath(String path) {
 		this.path = path;
