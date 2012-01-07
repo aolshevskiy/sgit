@@ -14,12 +14,12 @@ public class Content extends BaseBrowse {
 		InputStream is = getRepository().getFile(getPath());
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		StringBuilder result = new StringBuilder();
-		String line;
+		String line;		
 		while((line = reader.readLine()) != null) {
 			result.append(line);
 			result.append("\n");
 		}
-		return result.toString();
+		return result.substring(0, result.length() - 1).toString();
 	}
 	@DefaultHandler
 	public Resolution content() {
