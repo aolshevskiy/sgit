@@ -8,7 +8,7 @@
 		  <c:set target="${tree}" property="entry" value="${entry}" />
 			<li>
 			  <c:set var="beanClass">sgit.action.Content</c:set>
-			  <c:if test="${tree.isSubtreeEntry}">
+			  <c:if test="${entry.isDirectory}">
 			    <c:set var="beanClass">sgit.action.Log</c:set>
 			  </c:if>
 				<s:link beanclass="${beanClass}">
