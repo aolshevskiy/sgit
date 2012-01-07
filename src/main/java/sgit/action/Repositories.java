@@ -2,24 +2,19 @@ package sgit.action;
 
 import java.util.Collection;
 
-import org.eclipse.jgit.revwalk.RevCommit;
-
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
-import sgit.dao.RepositoryDao;
 import sgit.dto.GitRepository;
 
 import com.google.inject.Inject;
 
 public class Repositories extends Base {
-	private final Collection<GitRepository> repos;
-	private final RepositoryDao dao;
+	private final Collection<GitRepository> repos;	
 	
 	@Inject
-	Repositories(Collection<GitRepository> repos, RepositoryDao dao) {
-		this.repos = repos;
-		this.dao = dao;
+	Repositories(Collection<GitRepository> repos) {
+		this.repos = repos;		
 	}
 	public Collection<GitRepository> getRepos() {return repos;}
 	
