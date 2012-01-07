@@ -20,7 +20,17 @@ public class Log extends BaseBrowse {
 	}	
 	
 	public Iterator<RevCommit> getLog() {
-		return dao.getLog(getRepository(), getPath());
+		return dao.getLog(getRepository(), getPath());		
+	}
+	
+	private RevCommit commit;	
+	public void setCommit(RevCommit commit) {
+		System.out.println(commit.getName());
+		this.commit = commit;
+	}
+	
+	public String getAbbreviation() {
+		return commit.getName().substring(0, 8);
 	}
 	
 	@DefaultHandler

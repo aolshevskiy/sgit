@@ -7,7 +7,7 @@
 				<s:link beanclass="sgit.action.Log">
 					<s:param name="repository" value="${repo.name}" />
 					${repo.name}					
-				</s:link> 
+				</s:link> <br />
 				${repo.lastCommit.shortMessage}
 				<c:choose><c:when test="${repo.lastCommit != null}">
 					<em class="time">${repo.lastCommit.commitTime}</em>

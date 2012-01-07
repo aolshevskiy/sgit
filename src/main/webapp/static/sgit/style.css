@@ -2,6 +2,12 @@ body
 {
 	padding-top: 10px;	
 }
+#header a {
+	color: black;
+}
+#header a:hover {
+	text-decoration: none;
+}
 #header hr {
 	margin-top: 0;
 }
@@ -47,4 +53,19 @@ body
 	padding-left: 3px;
 	color: black;
 	border-top: 1px solid #AAAAAA;
+}
+#log li {
+	font-family: monospace;
+	color: black;
+	padding: 5px 10px;
+	background: #FAFAFA;
+	border-style: solid;
+	border-color: #BBBBBB; 
+	border-width: 0 1px 1px 1px;
+}
+#log li span {
+	font-family: sans;
+}
+#log li:FIRST-CHILD {
+	border-top-width: 1px;
 }
