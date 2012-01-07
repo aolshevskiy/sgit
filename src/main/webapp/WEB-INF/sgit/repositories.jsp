@@ -4,9 +4,9 @@
 	<ul class="unstyled" id="repositories">
 		<c:forEach items="${actionBean.repos}" var="repo">
 			<li>
-				<s:link beanclass="sgit.action.Browse">
-					${repo.name}
+				<s:link beanclass="sgit.action.Log">
 					<s:param name="repository" value="${repo.name}" />
+					${repo.name}					
 				</s:link> 
 				${repo.lastCommit.shortMessage}
 				<c:choose><c:when test="${repo.lastCommit != null}">

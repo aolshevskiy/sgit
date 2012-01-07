@@ -29,6 +29,10 @@ public class TreeBrowse extends BaseBrowse {
 		return getPath() + "/" + entry.getName();
 	}
 	
+	public boolean getIsSubtreeEntry() {
+		return entry.getIsDirectory();
+	}
+	
 	public List<PathEntry> getEntries() {return entries;}	
 	
 	public Resolution init() {

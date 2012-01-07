@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -146,12 +147,18 @@ public class RepositoryDao {
 		}
 	}
 	
-	public Iterable<RevCommit> getLog(SRepository repository, String path) {
-		System.out.println(repository + " " + path);
+	public Iterator<RevCommit> getLog(SRepository repository, String path) {		
 		Repository repo = buildRepository(repository.getPath());
-		Git git = new Git(repo);		
-		return git.log().call();	
-		
+		LogCommand log = new Git(repo).log();
+		if(!path.isEmpty())
+			log.addPath(path);
+		try {
+			return log.call().iterator();
+		} catch (NoHeadException e) {
+			throw new RuntimeException(e);		
+		} catch (JGitInternalException e) {			
+			throw new RuntimeException(e);
+		}		
 	}
 	
 }

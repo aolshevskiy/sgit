@@ -1,4 +1,5 @@
 <%@include file="/WEB-INF/sgit/taglibs.jsp" %>
+<<s:layout-definition>
 <s:layout-render name="/WEB-INF/sgit/layout/fluid.jsp" title="Browse">
 <s:layout-component name="sidebar">
 	<s:useActionBean beanclass="sgit.action.TreeBrowse" var="tree" event="init" />	 		  
@@ -6,7 +7,11 @@
 		<c:forEach items="${tree.entries}" var="entry">
 		  <c:set target="${tree}" property="entry" value="${entry}" />
 			<li>
-				<s:link beanclass="sgit.action.Browse">
+			  <c:set var="beanClass">sgit.action.Content</c:set>
+			  <c:if test="${tree.isSubtreeEntry}">
+			    <c:set var="beanClass">sgit.action.Log</c:set>
+			  </c:if>
+				<s:link beanclass="${beanClass}">
 					<s:param name="repository">${tree.repository.name}</s:param>
 					<c:if test="${tree.absolutePath != ''}">					
 						<s:param name="path">${tree.absolutePath}</s:param>
@@ -18,13 +23,7 @@
 	</ul>
 </s:layout-component>
 <s:layout-component name="body">
-  <c:set var="beanClass">sgit.action.Content</c:set>
-  <c:if test="${actionBean.isSubtree}">
-  	<c:set var="beanClass">sgit.action.Log</c:set>
-  </c:if>
-  <s:useActionBean beanclass="${beanClass}" var="content" event="content" />
-  <c:forEach items="${content.log}" var="commit">
-    ${commit}
-  </c:forEach>			
+  <s:layout-component name="body" />
 </s:layout-component>
 </s:layout-render>
+</s:layout-definition>
