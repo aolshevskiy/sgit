@@ -15,8 +15,17 @@ import net.sourceforge.stripes.action.Resolution;
 
 public class Log extends BaseBrowse {	
 	public Iterator<RevCommit> getLog() {
-		return getDao().getLog(getRepository(), getPath());		
+		return getRepository().getLog(getPath());		
 	}	
+	
+	private RevCommit commit;	
+	public void setCommit(RevCommit commit) {
+		this.commit = commit;
+	}
+	
+	public String getAbbrev() {
+		return commit.abbreviate(8).name();
+	}
 	
 	@DefaultHandler
 	public Resolution log() {

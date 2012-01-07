@@ -2,7 +2,7 @@
 <s:layout-render name="/WEB-INF/sgit/layout/home.jsp" title="Repositories">
 <s:layout-component name="body">
 	<ul class="unstyled" id="repositories">
-		<c:forEach items="${actionBean.repos}" var="repo">
+		<c:forEach items="${actionBean.repos}" var="repo">		 	
 			<li>
 				<s:link beanclass="sgit.action.Log">
 					<s:param name="repository" value="${repo.name}" />

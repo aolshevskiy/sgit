@@ -4,30 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.inject.Inject;
-
-import sgit.dao.RepositoryDao;
 import sgit.dto.Breadcrumb;
-import sgit.dto.SRepository;
+import sgit.dto.GitRepository;
 
-public abstract class BaseBrowse extends Base {
-	private RepositoryDao dao;
-	@Inject
-	void setDao(RepositoryDao dao) {
-		this.dao = dao;
-	}
-	public RepositoryDao getDao() {return dao;}
+public abstract class BaseBrowse extends Base {	
 	private String path = "";
-	public void setPath(String path) {
-		this.path = path;
+	public void setPath(String path) {		
+		this.path = path==null?"":path;
 	}
 	public String getPath() {return path;}
-	private SRepository repository;
-	public void setRepository(SRepository repository) {this.repository = repository;}	
-	public SRepository getRepository() {return repository;}
-	public boolean getIsSubtree() {
-		return dao.isSubtree(repository, path);
-	}	
+	private GitRepository repository;
+	public void setRepository(GitRepository repository) {this.repository = repository;}	
+	public GitRepository getRepository() {return repository;}		
 	private static String join(List<String> chunks) {
 		StringBuilder b = new StringBuilder();
 		int len = chunks.size();

@@ -2,9 +2,16 @@
 <s:layout-render name="/WEB-INF/sgit/layout/browse.jsp">
 <s:layout-component name="body">
 <ul class="unstyled" id="log">
-	<c:forEach items="${actionBean.log}" var="commit">	
+	<c:forEach items="${actionBean.log}" var="commit">
+	<c:set target="${actionBean}" property="commit" value="${commit}" />	
 	<li>
-		<a href="">${fn:substring(commit.name,0,8)}</a> <span class="message">${commit.shortMessage}</span> <span class="time">${commit.commitTime}</span>				
+		<s:link beanclass="sgit.action.Diff">
+			<s:param name="repository">${actionBean.repository.name}</s:param>			
+			<s:param name="path">${actionBean.path}</s:param>			
+			<s:param name="id">${actionBean.abbrev}</s:param>
+			${actionBean.abbrev}
+		</s:link> 
+		<span class="message">${commit.shortMessage}</span> <span class="time">${commit.commitTime}</span>				
 	</li>	      
   </c:forEach>
 </ul>
