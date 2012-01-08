@@ -44,17 +44,17 @@ public abstract class BaseBrowse extends Base {
 		return b.toString();
 	}
 	public List<Breadcrumb> getBreadcrumbs() {
-		if(path.isEmpty())
-			return Collections.emptyList();
 		List<Breadcrumb> result = new ArrayList<Breadcrumb>();
-		List<String> acc = new ArrayList<String>();
-		String chunks[] = path.split("/");
-		int len = chunks.length;
-		for(int i = 0; i < len; i++) {
-			acc.add(chunks[i]);
-			String path = (i==len-1 && getId() == null)?null:join(acc); 
-			result.add(new Breadcrumb(chunks[i], path));
-		}		
+		if(!path.isEmpty()) {		
+			List<String> acc = new ArrayList<String>();
+			String chunks[] = path.split("/");
+			int len = chunks.length;
+			for(int i = 0; i < len; i++) {
+				acc.add(chunks[i]);
+				String path = (i==len-1 && getId() == null)?null:join(acc); 
+				result.add(new Breadcrumb(chunks[i], path));
+			}
+		}
 		if(getId() != null)
 			result.add(new Breadcrumb(getId(), null));
 		return result;
