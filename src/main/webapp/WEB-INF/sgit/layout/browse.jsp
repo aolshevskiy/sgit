@@ -12,8 +12,9 @@
 			    <c:set var="beanClass">sgit.action.Log</c:set>
 			  </c:if>
 				<s:link beanclass="${beanClass}">
-					<s:param name="repository">${tree.repository.name}</s:param>										
-					<s:param name="path">${tree.absolutePath}</s:param>															
+					<s:param name="repository">${tree.repository.name}</s:param>
+					<s:param name="branch">${tree.branch}</s:param>										
+					<s:param name="path">${tree.absolutePath}</s:param>																				
 					${entry.name}<c:if test="${entry.isDirectory && !entry.isParent}">/</c:if>
 				</s:link>				
 			</li>

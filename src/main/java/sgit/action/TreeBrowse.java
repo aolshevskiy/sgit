@@ -23,9 +23,9 @@ public class TreeBrowse extends BaseBrowse {
 	public List<PathEntry> getEntries() {return entries;}	
 	
 	public Resolution init() {
-		if(!getRepository().isSubtree(getPath()))	
+		if(!getRepository().isSubtree(getBranch(), getPath()))	
 			setPath(Path.getParent(getPath()));		
-		entries = getRepository().getEntries(getPath());
+		entries = getRepository().getEntries(getBranch(), getPath());
 		return null;
 	}
 }

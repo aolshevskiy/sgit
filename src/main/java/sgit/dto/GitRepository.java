@@ -24,6 +24,7 @@ import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -66,14 +67,18 @@ public class GitRepository {
 		return rw.parseCommit(id).getTree();
 	}	
 	
-	private TreeWalk getPathTreeWalk(String path) throws AmbiguousObjectException, IOException {		
-		RevTree tree = getCommitTree(repository.resolve(Constants.HEAD));		
+	private ObjectId resolveBranch(String name) throws AmbiguousObjectException, IOException {
+		return repository.resolve("refs/heads/" + name);
+	}
+	
+	private TreeWalk getPathTreeWalk(String branch, String path) throws AmbiguousObjectException, IOException {		
+		RevTree tree = getCommitTree(resolveBranch(branch));		
 		return TreeWalk.forPath(repository, path, tree);
 	}	
 	
-	public List<PathEntry> getEntries(String path) {						
+	public List<PathEntry> getEntries(String branch, String path) {						
 		try {			
-			RevTree tree = getCommitTree(repository.resolve(Constants.HEAD));
+			RevTree tree = getCommitTree(resolveBranch(branch));
 			TreeWalk tw = new TreeWalk(repository);			
 			tw.addTree(tree);
 			List<PathEntry> result = new ArrayList<PathEntry>();
@@ -100,11 +105,11 @@ public class GitRepository {
 		}
 	}
 	
-	public boolean isSubtree(String path) {
+	public boolean isSubtree(String branch, String path) {
 		if(path.isEmpty())
 			return true;
 		try {			
-			return getPathTreeWalk(path).isSubtree();
+			return getPathTreeWalk(branch, path).isSubtree();
 		} catch (MissingObjectException e) {
 			throw new RuntimeException(e);
 		} catch (IncorrectObjectTypeException e) {
@@ -116,9 +121,10 @@ public class GitRepository {
 		}
 	}
 	
-	public Iterator<RevCommit> getLog(String path) {		
+	public Iterator<RevCommit> getLog(String branch, String path) {		
 		try {					
 			LogCommand log = git.log();
+			log.add(resolveBranch(branch));
 			if(!path.isEmpty())
 				log.addPath(path);
 			return log.call().iterator();
@@ -126,12 +132,20 @@ public class GitRepository {
 			throw new RuntimeException(e);		
 		} catch (JGitInternalException e) {			
 			throw new RuntimeException(e);
+		} catch (MissingObjectException e) {
+			throw new RuntimeException(e);
+		} catch (IncorrectObjectTypeException e) {
+			throw new RuntimeException(e);
+		} catch (AmbiguousObjectException e) {			
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}		
 	}
 	
-	public InputStream getFile(String path) {
+	public InputStream getFile(String branch, String path) {
 		try {			
-			TreeWalk tw = getPathTreeWalk(path);
+			TreeWalk tw = getPathTreeWalk(branch, path);
 			ObjectId objectId = tw.getObjectId(0);
 			ObjectLoader loader = repository.open(objectId);
 			return loader.openStream();
@@ -174,5 +188,30 @@ public class GitRepository {
 		} catch (GitAPIException e) {
 			throw new RuntimeException(e);
 		}	
+	}
+	
+	private static String branchName(String branch) {
+		return branch.substring(branch.lastIndexOf('/') + 1, branch.length());
+	}
+	
+	public String getDefaultBranch() {
+		List<Ref> branches = git.branchList().call();
+		for(Ref r: branches) {	
+			String name = branchName(r.getName());
+			if(name.equals("master"))
+				return name;
+		}
+		return branchName(branches.get(0).getName());
+	}
+	
+	public List<String> getBranchList(String exclude) {
+		List<Ref> branches = git.branchList().call();
+		List<String> result = new ArrayList<String>();
+		for(Ref r: branches) {	
+			String name = branchName(r.getName());
+			if(!name.equals(exclude))
+				result.add(name);
+		}
+		return result;
 	}
 }

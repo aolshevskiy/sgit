@@ -10,7 +10,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
 
 public class Log extends BaseBrowse {	
 	public Iterator<RevCommit> getLog() {
-		return getRepository().getLog(getPath());		
+		return getRepository().getLog(getBranch(), getPath());		
 	}	
 	
 	private RevCommit commit;	

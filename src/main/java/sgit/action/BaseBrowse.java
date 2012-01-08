@@ -21,6 +21,18 @@ public abstract class BaseBrowse extends Base {
 		this.id = id;
 	}
 	public String getId(){return id;}
+	private String branch;
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
+	public String getBranch() {
+		if(this.branch == null)
+			this.branch = repository.getDefaultBranch();
+		return this.branch;
+	}
+	public List<String> getBranchList() {
+		return repository.getBranchList(getBranch());
+	}
 	private static String join(List<String> chunks) {
 		StringBuilder b = new StringBuilder();
 		int len = chunks.size();

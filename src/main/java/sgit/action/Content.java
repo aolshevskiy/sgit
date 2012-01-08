@@ -11,7 +11,7 @@ import net.sourceforge.stripes.action.Resolution;
 
 public class Content extends BaseBrowse {
 	public String getContent() throws IOException {
-		InputStream is = getRepository().getFile(getPath());
+		InputStream is = getRepository().getFile(getBranch(), getPath());
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		StringBuilder result = new StringBuilder();
 		String line;		
