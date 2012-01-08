@@ -15,6 +15,7 @@
 		<li>
 			<s:link beanclass="sgit.action.Log">
 				<s:param name="repository">${actionBean.repository.name}</s:param>
+				<s:param name="branch">${actionBean.branch}</s:param>
 				<s:param name="path">${crumb.path}</s:param>
 				${crumb.label}
 			</s:link>			

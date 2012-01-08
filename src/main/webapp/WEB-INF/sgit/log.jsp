@@ -6,7 +6,8 @@
 	<c:set target="${actionBean}" property="commit" value="${commit}" />	
 	<li>
 		<s:link beanclass="sgit.action.Diff">
-			<s:param name="repository">${actionBean.repository.name}</s:param>			
+			<s:param name="repository">${actionBean.repository.name}</s:param>
+			<s:param name="branch">${actionBean.branch}</s:param>			
 			<s:param name="path">${actionBean.path}</s:param>			
 			<s:param name="id">${actionBean.abbrev}</s:param>
 			${actionBean.abbrev}
