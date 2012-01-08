@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.util.HtmlUtil;
 
 public class Content extends BaseBrowse {
 	public String getContent() throws IOException {
@@ -19,7 +20,7 @@ public class Content extends BaseBrowse {
 			result.append(line);
 			result.append("\n");
 		}
-		return result.toString();
+		return HtmlUtil.encode(result.toString());
 	}
 	@DefaultHandler
 	public Resolution content() {
