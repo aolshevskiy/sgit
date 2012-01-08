@@ -5,10 +5,12 @@ import java.util.Collection;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import sgit.dto.GitRepository;
 
 import com.google.inject.Inject;
 
+@UrlBinding("/")
 public class Repositories extends Base {
 	private final Collection<GitRepository> repos;	
 	
