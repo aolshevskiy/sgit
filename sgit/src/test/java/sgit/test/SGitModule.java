@@ -14,11 +14,11 @@ import com.google.inject.servlet.ServletModule;
 public class SGitModule extends ServletModule {	
 	@Override
 	protected void configureServlets() {		
+		install(new sgit.SGitModule());		
 		bindInterceptor(
 				Matchers.subclassesOf(StripesFilter.class), 
-				new InitMatcher(), 
-				new MarkerUpdater());				
-		install(new sgit.SGitModule());		
+				new InitMatcher(),
+				new MarkerUpdater());
 	}
 	
 	@Provides @Named("sgit.repositories")
