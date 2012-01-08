@@ -16,12 +16,7 @@ public class Repositories extends Base {
 	Repositories(Collection<GitRepository> repos) {
 		this.repos = repos;		
 	}
-	public Collection<GitRepository> getRepos() {return repos;}
-	
-	private GitRepository repository; 
-	public void setRepository(GitRepository repository) {
-		this.repository = repository;
-	}	
+	public Collection<GitRepository> getRepos() {return repos;}		
 	
 	@DefaultHandler
 	public Resolution list() {		

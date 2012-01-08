@@ -15,7 +15,12 @@ public abstract class BaseBrowse extends Base {
 	public String getPath() {return path;}
 	private GitRepository repository;
 	public void setRepository(GitRepository repository) {this.repository = repository;}	
-	public GitRepository getRepository() {return repository;}		
+	public GitRepository getRepository() {return repository;}
+	private String id;
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getId(){return id;}
 	private static String join(List<String> chunks) {
 		StringBuilder b = new StringBuilder();
 		int len = chunks.size();
@@ -35,9 +40,11 @@ public abstract class BaseBrowse extends Base {
 		int len = chunks.length;
 		for(int i = 0; i < len; i++) {
 			acc.add(chunks[i]);
-			String path = (i==len-1)?null:join(acc); 
+			String path = (i==len-1 && getId() == null)?null:join(acc); 
 			result.add(new Breadcrumb(chunks[i], path));
 		}		
+		if(getId() != null)
+			result.add(new Breadcrumb(getId(), null));
 		return result;
 	}
 }

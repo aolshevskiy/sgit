@@ -19,7 +19,7 @@ public class Content extends BaseBrowse {
 			result.append(line);
 			result.append("\n");
 		}
-		return result.substring(0, result.length() - 1).toString();
+		return result.toString();
 	}
 	@DefaultHandler
 	public Resolution content() {

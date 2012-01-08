@@ -3,7 +3,7 @@
 <s:layout-definition>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Social Git - ${title}</title>
+<title>Simple Git - ${title}</title>
 <link rel="stylesheet" type="text/css" href="${contextPath}/static/sgit/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/static/sgit/style.css" />
 <script type="text/javascript" src="${contextPath}/static/sgit/jquery-1.7.1.min.js"></script>

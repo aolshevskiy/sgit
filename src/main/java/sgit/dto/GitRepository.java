@@ -1,5 +1,7 @@
 package sgit.dto;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,8 +12,11 @@ import java.util.List;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.LogCommand;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.eclipse.jgit.api.errors.NoHeadException;
+import org.eclipse.jgit.diff.DiffEntry;
+import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
 import org.eclipse.jgit.errors.CorruptObjectException;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
@@ -24,6 +29,8 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.eclipse.jgit.treewalk.AbstractTreeIterator;
+import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.treewalk.filter.PathFilter;
 
@@ -54,20 +61,19 @@ public class GitRepository {
 	
 	public String getName() {return name;}
 	
-	private RevTree getHeadTree() throws AmbiguousObjectException, IOException {
-		ObjectId head = repository.resolve(Constants.HEAD);
+	private RevTree getCommitTree(ObjectId id) throws AmbiguousObjectException, IOException {		
 		RevWalk rw = new RevWalk(repository);			
-		return rw.parseCommit(head).getTree();
+		return rw.parseCommit(id).getTree();
 	}	
 	
 	private TreeWalk getPathTreeWalk(String path) throws AmbiguousObjectException, IOException {		
-		RevTree tree = getHeadTree();		
+		RevTree tree = getCommitTree(repository.resolve(Constants.HEAD));		
 		return TreeWalk.forPath(repository, path, tree);
 	}	
 	
 	public List<PathEntry> getEntries(String path) {						
 		try {			
-			RevTree tree = getHeadTree();
+			RevTree tree = getCommitTree(repository.resolve(Constants.HEAD));
 			TreeWalk tw = new TreeWalk(repository);			
 			tw.addTree(tree);
 			List<PathEntry> result = new ArrayList<PathEntry>();
@@ -142,5 +148,31 @@ public class GitRepository {
 		} catch (JGitInternalException e) {			
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public InputStream getDiff(String id) {
+		try {			
+			ObjectId objectId = repository.resolve(id);			
+			RevWalk revWalk = new RevWalk(repository);
+			RevCommit commit = revWalk.parseCommit(objectId);
+			RevCommit parent = revWalk.parseCommit(commit.getParent(0));
+			AbstractTreeIterator treeIterator = new CanonicalTreeParser(null, repository.newObjectReader(), commit.getTree());
+			AbstractTreeIterator parentTreeIterator = new CanonicalTreeParser(null, repository.newObjectReader(), parent.getTree());
+			List<DiffEntry> entries = git.diff()
+				.setNewTree(treeIterator)
+				.setOldTree(parentTreeIterator)
+				.call();
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			DiffFormatter fmt = new DiffFormatter(out);
+			fmt.setRepository(repository);							
+			fmt.format(entries);		
+			return new ByteArrayInputStream(out.toByteArray());
+		} catch (AmbiguousObjectException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} catch (GitAPIException e) {
+			throw new RuntimeException(e);
+		}	
 	}
 }
