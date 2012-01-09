@@ -1,8 +1,11 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>sgit</groupId>
-	<artifactId>standalone</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<parent>
+		<groupId>sgit</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>	
+	<artifactId>standalone</artifactId>	
 	<dependencies>
 		<dependency>
 			<groupId>sgit</groupId>
@@ -33,7 +36,7 @@
 						<phase>package</phase>
 					</execution>
 				</executions>
-				<configuration>					
+				<configuration>									
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
@@ -42,7 +45,27 @@
               <mainClass>winstone.Launcher</mainClass>
             </manifest>
           </archive>
+          <finalName>sgit-${project.version}-standalone</finalName>
+         <appendAssemblyId>false</appendAssemblyId>
         </configuration>				
+			</plugin>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>downloads-maven-plugin</artifactId>
+				<version>0.4</version>
+				<executions>
+					<execution>
+						<goals><goal>upload</goal></goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>		
+				<configuration>
+					<repositoryOwner>siasia</repositoryOwner>
+					<repositoryName>sgit</repositoryName>
+					<userName>siasia</userName>
+					<password>${github.password}</password>
+					<override>true</override>
+				</configuration>		
 			</plugin>
 		</plugins>
 	</build>
