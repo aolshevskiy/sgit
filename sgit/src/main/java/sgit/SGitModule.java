@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import jygments.HtmlFormatter;
+import jygments.Jygments;
+
 import net.sourceforge.stripes.controller.DispatcherServlet;
 import net.sourceforge.stripes.controller.StripesFilter;
 import sgit.dao.RepositoryDao;
@@ -27,10 +30,15 @@ public class SGitModule extends ServletModule {
 		filter("*.action", "/").through(StripesFilter.class, params);
 		serve("*.action", "/").with(DispatcherServlet.class);
 		bind(RepositoryDao.class).in(Singleton.class);
+		bind(Jygments.class).in(Singleton.class);
 	}
 	
 	@Provides
 	Collection<GitRepository> provideRepositories(RepositoryDao dao) {
 		return dao.getAll();
+	}
+	@Provides
+	HtmlFormatter provideFormatter(Jygments jygments) {
+		return jygments.newHtmlFormatter("");
 	}
 }
