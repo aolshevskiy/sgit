@@ -9,7 +9,15 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<groupId>jygments</groupId>
-	<artifactId>jygments</artifactId>			
+	<artifactId>jygments</artifactId>
+	<dependencies>
+		<dependency>
+			<groupId>org.python</groupId>
+			<artifactId>jython-standalone</artifactId>
+			<version>2.5.2</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>			
 	<build>
 		<plugins>
 			<plugin>
@@ -27,14 +35,7 @@
 					<libraries>
 						<param>pygments</param>
 					</libraries>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.python</groupId>
-						<artifactId>jython-standalone</artifactId>
-						<version>2.5.2</version>
-					</dependency>
-				</dependencies>
+				</configuration>				
 			</plugin>
 		</plugins>
 	</build>
