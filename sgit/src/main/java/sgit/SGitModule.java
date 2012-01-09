@@ -36,9 +36,5 @@ public class SGitModule extends ServletModule {
 	@Provides
 	Collection<GitRepository> provideRepositories(RepositoryDao dao) {
 		return dao.getAll();
-	}
-	@Provides
-	HtmlFormatter provideFormatter(Jygments jygments) {
-		return jygments.newHtmlFormatter("");
-	}
+	}	
 }

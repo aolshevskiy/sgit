@@ -6,6 +6,7 @@
 <title>Simple Git - ${title}</title>
 <link rel="stylesheet" type="text/css" href="${contextPath}/static/sgit/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/static/sgit/style.css" />
+<link rel="stylesheet" type="text/css" href="${contextPath}/static/sgit/highlight.css" />
 <script type="text/javascript" src="${contextPath}/static/sgit/jquery-1.7.1.min.js"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -17,9 +18,6 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<style>
-${appendStyle}
-</style>
 </head>
 <body id="${layout}-layout">
 <s:layout-component name="body" />

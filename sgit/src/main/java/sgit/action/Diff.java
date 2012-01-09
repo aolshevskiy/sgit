@@ -13,7 +13,7 @@ import net.sourceforge.stripes.util.HtmlUtil;
 public class Diff extends BaseHighlight {
 	private String highlight(String contents) {
 		Lexer lexer = jygments.newLexer("diff");
-		return jygments.highlight(contents, lexer, formatter);		
+		return jygments.highlight(contents, lexer);		
 	}
 	
 	public String getDiff() throws IOException {

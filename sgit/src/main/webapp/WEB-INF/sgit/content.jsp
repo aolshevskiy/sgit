@@ -1,5 +1,5 @@
 <%@include file="/WEB-INF/sgit/taglibs.jsp"%>
-<s:layout-render name="/WEB-INF/sgit/layout/browse.jsp" appendStyle="${actionBean.styleDefs}">
+<s:layout-render name="/WEB-INF/sgit/layout/browse.jsp">
 <s:layout-component name="body">
 <div id="content-header">
 <s:link beanclass="sgit.action.Log">

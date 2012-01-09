@@ -13,8 +13,6 @@ import jygments.Jygments;
 public abstract class BaseHighlight extends BaseBrowse {
 	@Inject
 	protected Jygments jygments;	
-	@Inject
-	protected HtmlFormatter formatter;
 
 	protected static String inputStreamToString(InputStream is) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -25,9 +23,5 @@ public abstract class BaseHighlight extends BaseBrowse {
 			result.append("\n");
 		}
 		return result.toString();
-	}
-	
-	public String getStyleDefs() {
-		return formatter.getStyleDefs(".highlight");
-	}
+	}	
 }

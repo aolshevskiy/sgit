@@ -6,6 +6,7 @@
 <title>Simple Git - ${title}</title>
 <link rel="stylesheet" type="text/css" href="${contextPath}/static/sgit/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/static/sgit/style.css" />
+<link rel="stylesheet" type="text/css" href="${contextPath}/static/sgit/highlight.css" />
 <script type="text/javascript" src="${contextPath}/static/sgit/jquery-1.7.1.min.js"></script>
 <style> 
 ${appendStyle}

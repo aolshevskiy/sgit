@@ -10,9 +10,9 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.util.HtmlUtil;
 
 public class Content extends BaseHighlight {	
-	private String highlight(String filename, String code) {
-		Lexer lexer = jygments.newLexerForFilename(filename);		
-		return jygments.highlight(code, lexer, formatter);
+	private String highlight(String filename, String code) {		
+		Lexer lexer = jygments.newLexerForFilename(filename);
+		return jygments.highlight(code, lexer);		
 	}
 	
 	private static String basename(String path) {
@@ -24,7 +24,7 @@ public class Content extends BaseHighlight {
 		String contents = inputStreamToString(is);
 		try {
 			return highlight(basename(getPath()), contents);
-		} catch(IllegalArgumentException e) {
+		} catch(IllegalArgumentException e) {			
 			return "<pre>"+HtmlUtil.encode(contents)+"</pre>";
 		}
 	}	
