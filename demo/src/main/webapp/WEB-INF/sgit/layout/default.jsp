@@ -17,6 +17,9 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+<style>
+${appendStyle}
+</style>
 </head>
 <body id="${layout}-layout">
 <s:layout-component name="body" />
