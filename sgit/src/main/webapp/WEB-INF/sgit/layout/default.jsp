@@ -7,6 +7,9 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/static/sgit/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/static/sgit/style.css" />
 <script type="text/javascript" src="${contextPath}/static/sgit/jquery-1.7.1.min.js"></script>
+<style> 
+${appendStyle}
+</style>
 </head>
 <body id="${layout}-layout">
 <s:layout-component name="body" />

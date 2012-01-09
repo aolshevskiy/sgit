@@ -9,6 +9,7 @@
 		<module>demo</module>
 		<module>winstone-embed</module>
 		<module>standalone</module>
+		<module>jygments</module>
 	</modules>
 	<build>	
 		<plugins>
