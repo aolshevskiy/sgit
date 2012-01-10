@@ -10,26 +10,17 @@
 		<dependency>
 			<groupId>sgit</groupId>
 			<artifactId>winstone-embed</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<classifier>embed</classifier>
+			<classifier>embed</classifier>			
 		</dependency>
 		<dependency>
       <groupId>org.apache.tomcat</groupId>
-      <artifactId>jasper</artifactId>
-      <version>6.0.35</version>
-      <exclusions>
-      	<exclusion>
-      		<groupId>org.apache.tomcat</groupId>
-      		<artifactId>catalina</artifactId>
-      	</exclusion>      	
-      </exclusions>
+      <artifactId>jasper</artifactId>     
     </dependency>      
 	</dependencies>	
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2.2</version>
+				<artifactId>maven-assembly-plugin</artifactId>				
 				<executions>
 					<execution>
 						<goals><goal>single</goal></goals>
@@ -51,8 +42,7 @@
 			</plugin>
 			<plugin>
 				<groupId>com.github.github</groupId>
-				<artifactId>downloads-maven-plugin</artifactId>
-				<version>0.4</version>
+				<artifactId>downloads-maven-plugin</artifactId>				
 				<executions>
 					<execution>
 						<goals><goal>upload</goal></goals>

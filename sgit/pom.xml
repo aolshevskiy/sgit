@@ -19,93 +19,58 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
-			<artifactId>guice-servlet</artifactId>
-			<version>[3.0,)</version>
+			<artifactId>guice-servlet</artifactId>			
 		</dependency>		
 		<dependency>
 			<groupId>net.sourceforge.stripes</groupId>
-			<artifactId>stripes</artifactId>
-			<version>[1.5.6,)</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
+			<artifactId>stripes</artifactId>			
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>[2.5,)</version>
-			<scope>provided</scope>
+			<artifactId>servlet-api</artifactId>			
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>[1.6.4,)</version>
+			<artifactId>slf4j-api</artifactId>			
 		</dependency>
 		<dependency>
 			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<version>[1.1.2,)</version>
+			<artifactId>standard</artifactId>			
 		</dependency>
 		<dependency>
 			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>			
+			<artifactId>jstl</artifactId>						
 		</dependency>		
     <dependency>
       <groupId>org.eclipse.jgit</groupId>
-      <artifactId>org.eclipse.jgit</artifactId>
-      <version>1.2.0.201112221803-r</version>
+      <artifactId>org.eclipse.jgit</artifactId>      
     </dependency>  		
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>[1.6.4,)</version>
-			<scope>runtime</scope>
+			<artifactId>jcl-over-slf4j</artifactId>			
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>[1.0.0,)</version>
-			<scope>runtime</scope>
+			<artifactId>logback-classic</artifactId>			
 		</dependency>
 		<dependency>
 			<groupId>org.python</groupId>
-			<artifactId>jython-standalone</artifactId>
-			<version>2.5.2</version>
+			<artifactId>jython-standalone</artifactId>						
 		</dependency>
 		<dependency>
 			<groupId>jygments</groupId>
-			<artifactId>jygments</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<artifactId>jygments</artifactId>			
 		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<artifactId>maven-war-plugin</artifactId>				
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<attachClasses>true</attachClasses>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.26</version>
-				<configuration>				
-					<useTestClasspath>true</useTestClasspath>
-					<webAppConfig>
-						<baseResource implementation="org.mortbay.resource.ResourceCollection">
-							<resourcesAsCSV>${project.basedir}/src/test/webapp,${project.basedir}/src/main/webapp</resourcesAsCSV>
-						</baseResource>
-					</webAppConfig>
-					<scanIntervalSeconds>1</scanIntervalSeconds>
-				</configuration>
-			</plugin>
+			</plugin>			
 		</plugins>
-	</build>
+	</build>	
 </project>

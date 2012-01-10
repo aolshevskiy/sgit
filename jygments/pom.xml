@@ -13,8 +13,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.python</groupId>
-			<artifactId>jython-standalone</artifactId>
-			<version>2.5.2</version>
+			<artifactId>jython-standalone</artifactId>			
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>			
@@ -22,8 +21,7 @@
 		<plugins>
 			<plugin>
 				<groupId>net.sf.mavenjython</groupId>
-				<artifactId>jython-compile-maven-plugin</artifactId>
-				<version>1.2</version>
+				<artifactId>jython-compile-maven-plugin</artifactId>				
 				<executions>
 					<execution>
 						<id>jython</id>
